@@ -141,6 +141,8 @@ Update-Database
 
 <img width="1918" height="541" alt="Image" src="https://github.com/user-attachments/assets/286ce84e-bc6c-4ae9-bcb9-e240596c6d85" />
 
+<img width="972" height="375" alt="Image" src="https://github.com/user-attachments/assets/cdad443d-7395-4e27-aadd-cf338d695338" />
+
 ### Onay Geçmişi
 
 <img width="1919" height="410" alt="Image" src="https://github.com/user-attachments/assets/71c04b6f-eb49-4c95-b88e-ead8ac1123be" />
