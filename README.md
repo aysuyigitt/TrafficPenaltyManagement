@@ -135,6 +135,8 @@ Update-Database
 
 <img width="1914" height="774" alt="Image" src="https://github.com/user-attachments/assets/70420516-6f33-48f8-8b0c-0190b8894593" />
 
+<img width="1052" height="642" alt="Image" src="https://github.com/user-attachments/assets/03910ef3-10b6-451a-861a-c7e30319e4cd" />
+
 ### Ceza Listesi
 
 <img width="1918" height="541" alt="Image" src="https://github.com/user-attachments/assets/286ce84e-bc6c-4ae9-bcb9-e240596c6d85" />
