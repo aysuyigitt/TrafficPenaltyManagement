@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TrafficPenaltyManagement.Domain.Enums;
+
+namespace TrafficPenaltyManagement.Application.Dtos.VehicleDtos
+{
+    public class VehicleDto
+    {
+        public int Id { get; set; }
+
+        public string Plate { get; set; }
+
+        public string Brand { get; set; }
+
+        public string Model { get; set; }
+
+        public VehicleType VehicleType { get; set; }
+    }
+}

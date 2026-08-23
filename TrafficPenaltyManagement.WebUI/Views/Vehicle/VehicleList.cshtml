@@ -1,0 +1,411 @@
+﻿@using TrafficPenaltyManagement.Application.Dtos.VehicleDtos
+@model List<VehicleDto>
+
+@{
+    ViewData["Title"] = "Vehicle Management";
+}
+
+<style>
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body {
+        background: #f5f7fb !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+        main > .container,
+        main > .container-fluid {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+    .vehicle-page {
+        width: 100%;
+        min-height: calc(100vh - 56px);
+        background: #f5f7fb;
+        padding: 35px 45px 50px;
+        box-sizing: border-box;
+    }
+
+    .vehicle-content {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+
+
+    .page-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .page-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+        color: #6b7280;
+        margin: 0;
+    }
+
+
+
+    .add-btn {
+        background: #2563eb;
+        color: white;
+        padding: 12px 22px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        border: none;w
+        transition: .2s;
+    }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+
+    .stats-card {
+        width: 100%;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 22px 28px;
+        margin-bottom: 25px;
+        box-sizing: border-box;
+        box-shadow: 0 3px 12px rgba(0,0,0,.03);
+    }
+
+    .stats-label {
+        color: #6b7280;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+    }
+
+    .stats-number {
+        color: #111827;
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 5px;
+    }
+
+
+    .vehicle-card {
+        width: 100%;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        overflow: hidden;
+        box-sizing: border-box;
+        box-shadow: 0 3px 15px rgba(0,0,0,.03);
+    }
+
+    .table-header {
+        padding: 22px 28px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .table-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .table-subtitle {
+        margin: 4px 0 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .vehicle-table {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+        .vehicle-table thead {
+            background: #f9fafb;
+        }
+
+        .vehicle-table th {
+            padding: 15px 28px;
+            color: #6b7280;       
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e5e7eb;
+            white-space: nowrap;
+        }
+
+        .vehicle-table td {
+            padding: 19px 28px;
+            color: #374151;
+            border-bottom: 1px solid #f1f3f5;
+            vertical-align: middle;
+        }
+
+        .vehicle-table tbody tr:hover {
+            background: #f8faff;
+        }
+
+        .vehicle-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+    .vehicle-id {
+        color: #9ca3af;
+        font-weight: 600;
+    }
+
+    .plate-badge {
+        display: inline-block;
+        background: #111827;
+        color: white;
+        padding: 7px 12px;
+        border-radius: 7px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .brand-name {
+        color: #111827;
+        font-weight: 600;
+    }
+
+    .model-name {
+        color: #6b7280;
+    }
+
+    .vehicle-type {
+        display: inline-block;
+        background: #eff6ff;
+        color: #2563eb;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+
+    .empty-state {
+        padding: 80px 20px;
+        text-align: center;
+    }
+
+    .empty-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .empty-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 8px;
+    }
+
+    .empty-text {
+        color: #6b7280;
+        margin-bottom: 20px;
+    }
+
+
+    @@media (max-width: 768px) {
+
+        .vehicle-page {
+            padding: 25px 15px 40px;
+        }
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .add-btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .vehicle-table {
+            min-width: 700px;
+        }
+    }
+</style>
+
+
+<div class="vehicle-page">
+
+    <div class="vehicle-content">
+
+        <div class="page-header">
+
+            <div>
+                <h1 class="page-title">
+                    Vehicle Management
+                </h1>
+
+                <p class="page-subtitle">
+                    Araçlarınızı görüntüleyin ve yönetin.
+                </p>
+            </div>
+
+            <a asp-controller="Vehicle"
+               asp-action="CreateVehicle"
+               class="add-btn">
+                + Yeni Araç
+            </a>
+
+        </div>
+
+
+        <div class="stats-card">
+
+            <div class="stats-label">
+                Toplam Araç
+            </div>
+
+            <div class="stats-number">
+                @(Model?.Count ?? 0)
+            </div>
+
+        </div>
+
+
+        <div class="vehicle-card">
+
+            <div class="table-header">
+
+                <h2 class="table-title">
+                    Vehicles
+                </h2>
+
+                <p class="table-subtitle">
+                    Sistemde kayıtlı araçlar
+                </p>
+
+            </div>
+
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-wrapper">
+
+                    <table class="table vehicle-table">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Plaka</th>
+                                <th>Marka</th>
+                                <th>Model</th>
+                                <th>Araç Tipi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var vehicle in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <span class="vehicle-id">
+                                            #@vehicle.Id
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="plate-badge">
+                                            @vehicle.Plate
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="brand-name">
+                                            @vehicle.Brand
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="model-name">
+                                            @vehicle.Model
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="vehicle-type">
+                                            @vehicle.VehicleType
+                                        </span>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+
+                    <div class="empty-icon">🚗</div>
+
+                    <div class="empty-title">
+                        Henüz araç bulunmuyor
+                    </div>
+
+                    <p class="empty-text">
+                        Sisteme ilk aracınızı ekleyerek başlayabilirsiniz.
+                    </p>
+
+                    <a asp-controller="Vehicle"
+                       asp-action="CreateVehicle"
+                       class="add-btn">
+                        + İlk Aracı Ekle
+                    </a>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>

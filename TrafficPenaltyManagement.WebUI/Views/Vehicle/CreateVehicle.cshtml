@@ -1,0 +1,373 @@
+﻿@using TrafficPenaltyManagement.Application.Dtos.VehicleDtos
+@model CreateVehicleDto
+
+@{
+    ViewData["Title"] = "Yeni Araç Ekle";
+}
+
+<style>
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body {
+        background: #f5f7fb !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+        main > .container,
+        main > .container-fluid {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+    /* PAGE */
+
+    .create-page {
+        width: 100%;
+        min-height: calc(100vh - 56px);
+        background: #f5f7fb;
+        padding: 35px 45px 60px;
+        box-sizing: border-box;
+    }
+
+    .create-content {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    /* HEADER */
+
+    .create-header {
+        margin-bottom: 28px;
+    }
+
+    .back-link {
+        display: inline-block;
+        color: #6b7280;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        transition: .2s;
+    }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+    .page-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #111827;
+        margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+        color: #6b7280;
+        margin: 0;
+        font-size: 15px;
+    }
+
+    /* FORM CARD */
+
+    .form-card {
+        width: 100%;
+        max-width: 850px;
+        background: white;
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.03);
+        padding: 35px;
+        box-sizing: border-box;
+    }
+
+    /* FORM */
+
+    .form-group {
+        margin-bottom: 22px;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+
+    .form-control,
+    .form-select {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 15px;
+        color: #111827;
+        background: white;
+        transition: .2s;
+    }
+
+        .form-control::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+            outline: none;
+        }
+
+    /* VALIDATION */
+
+    .validation-message {
+        color: #dc2626;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    /* BUTTONS */
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 1px solid #f1f3f5;
+    }
+
+    .btn-primary-custom {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: .2s;
+    }
+
+        .btn-primary-custom:hover {
+            background: #1d4ed8;
+        }
+
+    .btn-secondary-custom {
+        background: #f3f4f6;
+        color: #374151;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .2s;
+    }
+
+        .btn-secondary-custom:hover {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+    /* MOBILE */
+
+    @@media (max-width: 768px) {
+
+        .create-page {
+            padding: 25px 15px 40px;
+        }
+
+        .page-title {
+            font-size: 27px;
+        }
+
+        .form-card {
+            padding: 25px 20px;
+        }
+
+        .form-actions {
+            flex-direction: column-reverse;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom {
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+    }
+</style>
+
+
+<div class="create-page">
+
+    <div class="create-content">
+
+        <div class="create-header">
+
+            <a asp-controller="Vehicle"
+               asp-action="VehicleList"
+               class="back-link">
+                ← Araçlara Geri Dön
+            </a>
+
+            <h1 class="page-title">
+                Yeni Araç Ekle
+            </h1>
+
+            <p class="page-subtitle">
+                Sisteme yeni bir araç kaydetmek için bilgileri doldurun.
+            </p>
+
+        </div>
+
+
+        <div class="form-card">
+
+            <form asp-controller="Vehicle"
+                  asp-action="CreateVehicle"
+                  method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="validation-message">
+                </div>
+
+
+                <!-- PLAKA -->
+
+                <div class="form-group">
+
+                    <label asp-for="Plate"
+                           class="form-label">
+                        Plaka
+                    </label>
+
+                    <input asp-for="Plate"
+                           class="form-control"
+                           placeholder="Örn. 41 ABC 123" />
+
+                    <span asp-validation-for="Plate"
+                          class="validation-message">
+                    </span>
+
+                </div>
+                <div class="form-group">
+
+                    <label asp-for="Brand"
+                           class="form-label">
+                        Marka
+                    </label>
+
+                    <input asp-for="Brand"
+                           class="form-control"
+                           placeholder="Örn. Toyota" />
+
+                    <span asp-validation-for="Brand"
+                          class="validation-message">
+                    </span>
+
+                </div>
+
+
+     
+
+                <div class="form-group">
+
+                    <label asp-for="Model"
+                           class="form-label">
+                        Model
+                    </label>
+
+                    <input asp-for="Model"
+                           class="form-control"
+                           placeholder="Örn. Corolla" />
+
+                    <span asp-validation-for="Model"
+                          class="validation-message">
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label asp-for="VehicleType"
+                           class="form-label">
+                        Araç Tipi
+                    </label>
+
+                    <select asp-for="VehicleType"
+                            class="form-select">
+
+                        <option value="">
+                            Araç tipini seçin
+                        </option>
+
+                        <option value="Passenger">
+                            Binek
+                        </option>
+
+                        <option value="Tractor">
+                            Çekici
+                        </option>
+
+                        <option value="Trailer">
+                            Dorse
+                        </option>
+
+                        <option value="RentalVehicle">
+                            Kiralık Araç
+                        </option>
+                    </select>
+
+                    <span asp-validation-for="VehicleType"
+                          class="validation-message">
+                    </span>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <a asp-controller="Vehicle"
+                       asp-action="VehicleList"
+                       class="btn-secondary-custom">
+                        İptal
+                    </a>
+
+                    <button type="submit"
+                            class="btn-primary-custom">
+                        Aracı Kaydet
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

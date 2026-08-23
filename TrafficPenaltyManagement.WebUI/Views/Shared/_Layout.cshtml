@@ -1,0 +1,473 @@
+﻿```cshtml
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @ViewData["Title"] - Trafik Ceza Yönetim Sistemi
+    </title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/TrafficPenaltyManagement.WebUI.styles.css"
+          asp-append-version="true" />
+
+
+    <style>
+
+     
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            background-color: #f5f7fb;
+        }
+
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            padding: 25px 15px;
+            overflow-y: auto;
+            z-index: 9999;
+        }
+
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0d6efd;
+            padding: 10px 12px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9ca3af;
+            text-transform: uppercase;
+            padding-left: 12px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 11px 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #374151;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+
+            .menu-item:hover {
+                background-color: #f1f5ff;
+                color: #0d6efd;
+            }
+
+
+        /* ALT MENÜ */
+
+        .submenu {
+            margin-left: 15px;
+        }
+
+
+            .submenu .menu-item {
+                font-size: 13px;
+            }
+
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 15px;
+            right: 15px;
+        }
+
+
+        .user-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 10px 12px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+
+        .user-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #374151;
+            font-size: 13px;
+            font-weight: 500;
+            min-width: 0;
+        }
+
+
+            .user-name span:last-child {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+
+        .logout-button {
+            border: none;
+            background: transparent;
+            color: #dc3545;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+
+
+            .logout-button:hover {
+                color: #a71d2a;
+            }
+
+        .content-wrapper {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 65px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 30px;
+        }
+
+
+        .topbar-user {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        footer {
+            background-color: transparent;
+        }
+
+        @@media (max-width: 768px) {
+            .sidebar
+
+        {
+            width: 220px;
+        }
+
+        .content-wrapper {
+            margin-left: 220px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="sidebar-logo">
+
+            🚦 Trafik Ceza
+            <br />
+
+            Yönetim Sistemi
+
+        </div>
+
+
+        <div class="menu-title">
+
+            Ana Menü
+
+        </div>
+
+
+        <!-- ANA SAYFA -->
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="menu-item">
+
+            <span>🏠</span>
+
+            <span>Ana Sayfa</span>
+
+        </a>
+
+
+        <div class="menu-title">
+
+            Araç Yönetimi
+
+        </div>
+
+
+        <div class="submenu">
+
+
+
+            <a asp-controller="Vehicle"
+               asp-action="VehicleList"
+               class="menu-item">
+
+                <span>🚗</span>
+
+                <span>Araçları Listele</span>
+
+            </a>
+
+
+            <!-- YENİ ARAÇ -->
+
+            <a asp-controller="Vehicle"
+               asp-action="CreateVehicle"
+               class="menu-item">
+
+                <span>➕</span>
+
+                <span>Yeni Araç Ekle</span>
+
+            </a>
+
+
+        </div>
+
+
+
+        <div class="menu-title">
+
+            Ceza Yönetimi
+
+        </div>
+
+
+        <div class="submenu">
+
+
+            <!-- CEZA LİSTESİ -->
+
+            <a asp-controller="Penalty"
+               asp-action="PenaltyList"
+               class="menu-item">
+
+                <span>🚨</span>
+
+                <span>Ceza Listesi</span>
+
+            </a>
+
+
+            <!-- YENİ CEZA -->
+
+            <a asp-controller="Penalty"
+               asp-action="CreatePenalty"
+               class="menu-item">
+
+                <span>➕</span>
+
+                <span>Yeni Ceza Oluştur</span>
+
+            </a>
+
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- KULLANICI -->
+        <!-- ================================================= -->
+        @if (User.Identity != null &&
+                User.Identity.IsAuthenticated)
+        {
+
+            <div class="sidebar-bottom">
+
+
+                <div class="menu-title">
+
+                    Kullanıcı
+
+                </div>
+
+
+                <div class="user-panel">
+
+
+                    <!-- KULLANICI ADI -->
+
+                    <div class="user-name">
+
+                        <span>👤</span>
+
+                        <span>
+                            @User.Identity.Name
+                        </span>
+
+                    </div>
+
+
+                    <!-- ÇIKIŞ -->
+
+                    <form asp-controller="Login"
+                          asp-action="Logout"
+                          method="post">
+
+                        <button type="submit"
+                                class="logout-button">
+
+                            🚪 Çıkış
+
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        }
+
+
+    </aside>
+
+
+    <!-- ================================================= -->
+    <!-- SAĞ TARAF -->
+    <!-- ================================================= -->
+
+    <div class="content-wrapper">
+
+
+        <!-- ================================================= -->
+        <!-- ÜST BAR -->
+        <!-- ================================================= -->
+
+        <div class="topbar">
+
+
+            @if (User.Identity != null &&
+                        User.Identity.IsAuthenticated)
+            {
+
+                <div class="topbar-user">
+
+                    👤 @User.Identity.Name
+
+                </div>
+
+            }
+
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- SAYFA İÇERİĞİ -->
+        <!-- ================================================= -->
+
+        <div class="content">
+
+            <main role="main">
+
+                @RenderBody()
+
+            </main>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- FOOTER -->
+        <!-- ================================================= -->
+
+        <footer class="border-top text-muted">
+
+            <div class="container-fluid py-3">
+
+                © 2026 - Trafik Ceza Yönetim Sistemi
+
+            </div>
+
+        </footer>
+
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ================================================= -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true">
+    </script>
+
+    @await RenderSectionAsync(
+    "Scripts",
+        required: false)
+
+</body>
+
+</html>

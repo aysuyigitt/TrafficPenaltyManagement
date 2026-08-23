@@ -1,0 +1,45 @@
+﻿@model List<TrafficPenaltyManagement.Application.Dtos.PenaltyApprovalHistoryDtos.PenaltyApprovalHistoryDto>
+
+@{
+    ViewData["Title"] = "Ceza Geçmişi";
+}
+
+<h2>Ceza İşlem Geçmişi</h2>
+
+@if (!Model.Any())
+{
+    <p>Bu ceza için henüz işlem geçmişi bulunmamaktadır.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Kullanıcı</th>
+                <th>İşlem</th>
+                <th>Önceki Durum</th>
+                <th>Yeni Durum</th>
+                <th>Açıklama</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var history in Model)
+            {
+                <tr>
+                    <td>@history.UserName</td>
+                    <td>@history.ActionType</td>
+                    <td>@history.PreviousStatus</td>
+                    <td>@history.NewStatus</td>
+                    <td>@history.Description</td>
+                    <td>@history.ActionDate.ToString("dd.MM.yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-action="PenaltyList" class="btn btn-secondary">
+    Ceza Listesine Dön
+</a>
