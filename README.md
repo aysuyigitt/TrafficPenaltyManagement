@@ -1,10 +1,10 @@
-# 🚗 Traffic Penalty Management
+#  Traffic Penalty Management
 
 .NET 9 ve ASP.NET Core MVC kullanılarak geliştirilmiş, trafik cezalarının oluşturulması, takip edilmesi ve rol bazlı onay süreçlerinin yönetilmesini sağlayan Trafik Cezası Yönetim ve Onay Uygulaması.
 
 ---
 
-## 💡 Proje Özellikleri
+##  Proje Özellikleri
 
 ### Araç Yönetimi
 Araçların plaka, tip, marka ve model bilgileriyle sisteme kaydedilmesini ve listelenmesini sağlar.
@@ -26,7 +26,7 @@ Cezalar üzerinde gerçekleştirilen tüm onay ve ret işlemleri kayıt altına 
 
 ---
 
-## 🛠️ Kullanılan Teknolojiler
+##  Kullanılan Teknolojiler
 * .NET 9
 * ASP.NET Core MVC
 * Entity Framework Core
@@ -38,7 +38,7 @@ Cezalar üzerinde gerçekleştirilen tüm onay ve ret işlemleri kayıt altına 
 
 ---
 
-## 📐 Proje Mimarisi
+##  Proje Mimarisi
 
 Proje, katmanlı mimari yaklaşımı kullanılarak geliştirilmiştir.
 
@@ -74,7 +74,7 @@ TrafficPenaltyManagement
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma
+##  Kurulum ve Çalıştırma
 
 ### Gereksinimler
 * .NET 9 SDK
@@ -115,7 +115,7 @@ Update-Database
 
 ---
 
-## 💻 İlk Giriş ve Test Akışı
+##  İlk Giriş ve Test Akışı
 
 1. Uygulama çalıştırıldıktan sonra `/Register/Index` adresinden yeni bir kullanıcı oluşturun.
 2. `/Login/Index` üzerinden sisteme giriş yapın.
@@ -141,6 +141,6 @@ Update-Database
 
 ### Onay Geçmişi
 
-![Onay Geçmişi](images/history.png)
+<img width="1919" height="410" alt="Image" src="https://github.com/user-attachments/assets/71c04b6f-eb49-4c95-b88e-ead8ac1123be" />
 
 
