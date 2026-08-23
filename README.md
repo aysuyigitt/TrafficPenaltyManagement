@@ -129,15 +129,15 @@ Update-Database
 
 ### Login
 
-<img width="1914" height="774" alt="Image" src="https://github.com/user-attachments/assets/70420516-6f33-48f8-8b0c-0190b8894593" />
+
 
 ### Araç Yönetimi
 
-<img width="1918" height="541" alt="Image" src="https://github.com/user-attachments/assets/286ce84e-bc6c-4ae9-bcb9-e240596c6d85" />
+<img width="1914" height="774" alt="Image" src="https://github.com/user-attachments/assets/70420516-6f33-48f8-8b0c-0190b8894593" />
 
 ### Ceza Listesi
 
-![Ceza Listesi](images/penalties.png)
+<img width="1918" height="541" alt="Image" src="https://github.com/user-attachments/assets/286ce84e-bc6c-4ae9-bcb9-e240596c6d85" />
 
 ### Onay Geçmişi
 
