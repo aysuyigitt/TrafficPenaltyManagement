@@ -10,26 +10,18 @@ using TrafficPenaltyManagement.Infrastructure.Persistence;
 
 namespace TrafficPenaltyManagement.Infrastructure.Repositories
 {
-    public class PenaltyRepository : IPenaltyRepository
+    public class PenaltyRepository : GenericRepository<Penalty>, IPenaltyRepository
     {
         private readonly AppDbContext _context;
 
-        public PenaltyRepository(AppDbContext context)
+        public PenaltyRepository(AppDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<Penalty> AddAsync(Penalty penalty)
-        {
-            await _context.Penalties.AddAsync(penalty);
-            await _context.SaveChangesAsync();
-
-            return penalty;
-        }
-
         public async Task<List<Penalty>> GetAllAsync()
         {
-            return await _context.Penalties.Include(x => x.Vehicle).ToListAsync();
+            return await _context.Penalties.Include(x => x.Vehicle).ThenInclude(x => x.VehicleAssignments).ThenInclude(x => x.Employee).Include(x =>x.PenaltyType).ToListAsync();
         }
 
         public async Task<Penalty?> GetByIdAsync(int id)
@@ -37,13 +29,10 @@ namespace TrafficPenaltyManagement.Infrastructure.Repositories
             return await _context.Penalties.Include(x => x.Vehicle).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Penalty> UpdateAsync(Penalty penalty)
+        public async Task<List<Penalty>> GetByVehicleIdAsync(int vehicleId)
         {
-            _context.Penalties.Update(penalty);
-
-            await _context.SaveChangesAsync();
-
-            return penalty;
+            return await _context.Penalties.Where(x => x.VehicleId == vehicleId).ToListAsync();
         }
+
     }
 }

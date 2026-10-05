@@ -7,9 +7,9 @@ using TrafficPenaltyManagement.Domain.Entitites;
 
 namespace TrafficPenaltyManagement.Application.Interfaces
 {
-    public interface IPenaltyApprovalHistoryRepository
+    public interface IPenaltyApprovalHistoryRepository : IGenericRepository<PenaltyApprovalHistory>
     {
-        Task<PenaltyApprovalHistory> AddAsync(PenaltyApprovalHistory history);
+    //    Task<PenaltyApprovalHistory> AddAsync(PenaltyApprovalHistory history);
 
         Task<List<PenaltyApprovalHistory>> GetByPenaltyIdAsync(int penaltyId);
     }

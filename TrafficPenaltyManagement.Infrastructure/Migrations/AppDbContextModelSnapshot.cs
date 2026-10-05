@@ -155,6 +155,50 @@ namespace TrafficPenaltyManagement.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Branch")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EMail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.Penalty", b =>
                 {
                     b.Property<int>("Id")
@@ -162,6 +206,18 @@ namespace TrafficPenaltyManagement.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DocumentPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PenaltyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PenaltyTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("RejectionReason")
                         .HasColumnType("nvarchar(max)");
@@ -173,6 +229,8 @@ namespace TrafficPenaltyManagement.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PenaltyTypeId");
 
                     b.HasIndex("VehicleId");
 
@@ -212,6 +270,26 @@ namespace TrafficPenaltyManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PenaltyApprovalHistories");
+                });
+
+            modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.PenaltyType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PenaltyTypes");
                 });
 
             modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.User", b =>
@@ -260,6 +338,35 @@ namespace TrafficPenaltyManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.VehicleAssignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("VehicleAssignments");
                 });
 
             modelBuilder.Entity("TrafficPenaltyManagement.Infrastructure.Identitiy.ApplicationUser", b =>
@@ -387,18 +494,50 @@ namespace TrafficPenaltyManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.Penalty", b =>
                 {
+                    b.HasOne("TrafficPenaltyManagement.Domain.Entitites.PenaltyType", "PenaltyType")
+                        .WithMany()
+                        .HasForeignKey("PenaltyTypeId");
+
                     b.HasOne("TrafficPenaltyManagement.Domain.Entitites.Vehicle", "Vehicle")
                         .WithMany("Penalties")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("PenaltyType");
+
                     b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.VehicleAssignment", b =>
+                {
+                    b.HasOne("TrafficPenaltyManagement.Domain.Entitites.Employee", "Employee")
+                        .WithMany("VehicleAssignments")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrafficPenaltyManagement.Domain.Entitites.Vehicle", "Vehicle")
+                        .WithMany("VehicleAssignments")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.Employee", b =>
+                {
+                    b.Navigation("VehicleAssignments");
                 });
 
             modelBuilder.Entity("TrafficPenaltyManagement.Domain.Entitites.Vehicle", b =>
                 {
                     b.Navigation("Penalties");
+
+                    b.Navigation("VehicleAssignments");
                 });
 #pragma warning restore 612, 618
         }

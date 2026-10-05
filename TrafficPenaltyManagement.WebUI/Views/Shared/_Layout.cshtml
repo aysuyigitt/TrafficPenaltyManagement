@@ -1,5 +1,4 @@
-﻿```cshtml
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 
 <head>
@@ -26,8 +25,6 @@
 
 
     <style>
-
-     
 
         html,
         body {
@@ -163,10 +160,12 @@
                 color: #a71d2a;
             }
 
+
         .content-wrapper {
             margin-left: 250px;
             min-height: 100vh;
         }
+
 
         .topbar {
             height: 65px;
@@ -184,37 +183,38 @@
             font-size: 14px;
         }
 
+
         .content {
             padding: 30px;
         }
+
 
         footer {
             background-color: transparent;
         }
 
+
         @@media (max-width: 768px) {
-            .sidebar
 
-        {
-            width: 220px;
+            .sidebar {
+                width: 220px;
+            }
+
+            .content-wrapper {
+                margin-left: 220px;
+            }
+
+            .content {
+                padding: 20px;
+            }
         }
 
-        .content-wrapper {
-            margin-left: 220px;
-        }
-
-        .content {
-            padding: 20px;
-        }
-
-        }
     </style>
 
 </head>
 
 
 <body>
-
 
 
     <aside class="sidebar">
@@ -252,6 +252,10 @@
         </a>
 
 
+        <!-- ================================================= -->
+        <!-- ARAÇ YÖNETİMİ -->
+        <!-- ================================================= -->
+
         <div class="menu-title">
 
             Araç Yönetimi
@@ -262,6 +266,7 @@
         <div class="submenu">
 
 
+            <!-- ARAÇ LİSTESİ -->
 
             <a asp-controller="Vehicle"
                asp-action="VehicleList"
@@ -289,7 +294,32 @@
 
         </div>
 
+        <!-- ================================================= -->
+        <!-- YÖNETİM -->
+        <!-- ================================================= -->
 
+        <div class="menu-title">
+
+            Yönetim
+
+        </div>
+
+
+        <div class="submenu">
+
+            <!-- ÇALIŞANLAR -->
+
+            <a asp-controller="Employee"
+               asp-action="EmployeeList"
+               class="menu-item">
+
+                <span>👥</span>
+
+                <span>Çalışanlar</span>
+
+            </a>
+
+        </div>
 
         <div class="menu-title">
 
@@ -327,8 +357,20 @@
             </a>
 
 
-        </div>
+            <!-- CEZA TÜRLERİ -->
 
+            <a asp-controller="PenaltyType"
+               asp-action="PenaltyTypeList"
+               class="menu-item">
+
+                <span>📋</span>
+
+                <span>Ceza Türleri</span>
+
+            </a>
+
+
+        </div>
 
         <!-- ================================================= -->
         <!-- KULLANICI -->
@@ -463,6 +505,7 @@
     <script src="~/js/site.js"
             asp-append-version="true">
     </script>
+
 
     @await RenderSectionAsync(
     "Scripts",

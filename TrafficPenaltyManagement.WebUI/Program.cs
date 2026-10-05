@@ -2,11 +2,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TrafficPenaltyManagement.Application.Interfaces;
 using TrafficPenaltyManagement.Application.Mapping;
+using TrafficPenaltyManagement.Application.Services.DashboardService;
+using TrafficPenaltyManagement.Application.Services.EmployeeServices;
 using TrafficPenaltyManagement.Application.Services.PenaltyServices;
+using TrafficPenaltyManagement.Application.Services.PenaltyTypeServices;
 using TrafficPenaltyManagement.Application.Services.VehicleSerivces;
 using TrafficPenaltyManagement.Infrastructure.Identitiy;
 using TrafficPenaltyManagement.Infrastructure.Persistence;
 using TrafficPenaltyManagement.Infrastructure.Repositories;
+using TrafficPenaltyManagement.WebUI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +27,17 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPenaltyApprovalHistoryRepository,PenaltyApprovalHistoryRepository>();
 builder.Services.AddScoped<IPenaltyRepository, PenaltyRepository>();
 builder.Services.AddScoped<IPenaltyService, PenaltyService>();
+builder.Services.AddScoped<IPenaltyTypeRepository, PenaltyTypeRepository>();
+builder.Services.AddScoped<IPenaltyTypeService, PenaltyTypeService>();
 builder.Services.AddAutoMapper(typeof(GeneralMapping));
 
 

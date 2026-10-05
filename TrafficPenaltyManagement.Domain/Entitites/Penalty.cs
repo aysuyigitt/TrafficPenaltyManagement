@@ -15,6 +15,16 @@ namespace TrafficPenaltyManagement.Domain.Entitites
 
         public Vehicle Vehicle { get; set; }
 
+        public int? PenaltyTypeId { get; set; }
+
+        public PenaltyType? PenaltyType { get; set; }
+
+        public decimal Amount { get; set; }
+
+        public DateTime PenaltyDate { get; set; }
+
+        public string? DocumentPath { get; set; }
+
         public PenaltyStatus Status { get; set; }
 
         public string? RejectionReason { get; set; }
