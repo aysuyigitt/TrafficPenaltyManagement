@@ -1,8 +1,656 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@model TrafficPenaltyManagement.Application.Dtos.DashboardDtos.DashboardDto
+
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dashboard-page">
+
+    <!-- HEADER -->
+    <div class="dashboard-header">
+        <div>
+            <span class="dashboard-label">GENEL BAKIŞ</span>
+
+            <h1>Ana Dashboard</h1>
+
+            <p>
+                Sistemin genel durumunu ve güncel verileri buradan takip edebilirsiniz.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- DASHBOARD CARDS -->
+    <div class="dashboard-cards">
+
+        <!-- TOPLAM ÇALIŞAN -->
+        <div class="dashboard-card">
+
+            <div class="card-top">
+                <div class="card-icon employee-icon">
+                    <span>👤</span>
+                </div>
+            </div>
+
+            <div class="card-title">
+                Toplam Çalışan
+            </div>
+
+            <div class="card-value">
+                @Model.TotalEmployees
+            </div>
+
+            <div class="card-description">
+                Sistemde kayıtlı çalışan sayısı
+            </div>
+
+        </div>
+
+
+        <!-- TOPLAM ARAÇ -->
+        <div class="dashboard-card">
+
+            <div class="card-top">
+                <div class="card-icon vehicle-icon">
+                    <span>🚗</span>
+                </div>
+            </div>
+
+            <div class="card-title">
+                Toplam Araç
+            </div>
+
+            <div class="card-value">
+                @Model.TotalVehicles
+            </div>
+
+            <div class="card-description">
+                Sistemde kayıtlı araç sayısı
+            </div>
+
+        </div>
+
+
+        <!-- TOPLAM CEZA -->
+        <div class="dashboard-card">
+
+            <div class="card-top">
+                <div class="card-icon penalty-icon">
+                    <span>⚠</span>
+                </div>
+            </div>
+
+            <div class="card-title">
+                Toplam Ceza
+            </div>
+
+            <div class="card-value">
+                @Model.TotalPenalties
+            </div>
+
+            <div class="card-description">
+                Sistemde kayıtlı toplam ceza
+            </div>
+
+        </div>
+
+
+        <!-- TAMAMLANAN CEZA -->
+        <div class="dashboard-card">
+
+            <div class="card-top">
+                <div class="card-icon completed-icon">
+                    <span>✓</span>
+                </div>
+            </div>
+
+            <div class="card-title">
+                Tamamlanan Ceza
+            </div>
+
+            <div class="card-value">
+                @Model.CompletedPenalties
+            </div>
+
+            <div class="card-description">
+                İşlemi tamamlanan ceza sayısı
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CEZA DURUMLARI -->
+    <div class="penalty-chart-section">
+
+        <div class="chart-header">
+
+            <div>
+                <span class="chart-label">
+                    CEZA ANALİZİ
+                </span>
+
+                <h2>
+                    Ceza Durumları
+                </h2>
+
+                <p>
+                    Ceza kayıtlarının mevcut durumlara göre dağılımı.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="penalty-chart">
+
+
+            <!-- NEW -->
+            <div class="chart-row">
+
+                <div class="chart-name">
+
+                    <span class="status-dot new"></span>
+
+                    Yeni
+
+                </div>
+
+
+                <div class="chart-bar-container">
+
+                    <div class="chart-bar new-bar"
+                         style="width: @(Model.TotalPenalties == 0 ? 0 : (Model.NewPenalties * 100 / Model.TotalPenalties))%;">
+                    </div>
+
+                </div>
+
+
+                <div class="chart-count">
+
+                    @Model.NewPenalties
+
+                </div>
+
+            </div>
+
+
+            <!-- MANAGER APPROVAL -->
+            <div class="chart-row">
+
+                <div class="chart-name">
+
+                    <span class="status-dot manager"></span>
+
+                    Yönetici Onayı
+
+                </div>
+
+
+                <div class="chart-bar-container">
+
+                    <div class="chart-bar manager-bar"
+                         style="width: @(Model.TotalPenalties == 0 ? 0 : (Model.ManagerApprovalPenalties * 100 / Model.TotalPenalties))%;">
+                    </div>
+
+                </div>
+
+
+                <div class="chart-count">
+
+                    @Model.ManagerApprovalPenalties
+
+                </div>
+
+            </div>
+
+
+            <!-- FINANCE APPROVAL -->
+            <div class="chart-row">
+
+                <div class="chart-name">
+
+                    <span class="status-dot finance"></span>
+
+                    Finans Onayı
+
+                </div>
+
+
+                <div class="chart-bar-container">
+
+                    <div class="chart-bar finance-bar"
+                         style="width: @(Model.TotalPenalties == 0 ? 0 : (Model.FinanceApprovalPenalties * 100 / Model.TotalPenalties))%;">
+                    </div>
+
+                </div>
+
+
+                <div class="chart-count">
+
+                    @Model.FinanceApprovalPenalties
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPLETED -->
+            <div class="chart-row">
+
+                <div class="chart-name">
+
+                    <span class="status-dot completed"></span>
+
+                    Tamamlandı
+
+                </div>
+
+
+                <div class="chart-bar-container">
+
+                    <div class="chart-bar completed-bar"
+                         style="width: @(Model.TotalPenalties == 0 ? 0 : (Model.CompletedPenalties * 100 / Model.TotalPenalties))%;">
+                    </div>
+
+                </div>
+
+
+                <div class="chart-count">
+
+                    @Model.CompletedPenalties
+
+                </div>
+
+            </div>
+
+
+            <!-- REJECTED -->
+            <div class="chart-row">
+
+                <div class="chart-name">
+
+                    <span class="status-dot rejected"></span>
+
+                    Reddedildi
+
+                </div>
+
+
+                <div class="chart-bar-container">
+
+                    <div class="chart-bar rejected-bar"
+                         style="width: @(Model.TotalPenalties == 0 ? 0 : (Model.RejectedPenalties * 100 / Model.TotalPenalties))%;">
+                    </div>
+
+                </div>
+
+
+                <div class="chart-count">
+
+                    @Model.RejectedPenalties
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
 </div>
+
+
+<style>
+
+    /* =========================================================
+       DASHBOARD
+       ========================================================= */
+
+    .dashboard-page {
+        padding: 35px;
+        background-color: #f8fafc;
+        min-height: calc(100vh - 70px);
+    }
+
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    .dashboard-header {
+        margin-bottom: 35px;
+    }
+
+
+    .dashboard-label {
+        display: block;
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        margin-bottom: 7px;
+    }
+
+
+    .dashboard-header h1 {
+        margin: 0 0 8px 0;
+        font-size: 34px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+
+    .dashboard-header p {
+        margin: 0;
+        color: #64748b;
+        font-size: 15px;
+    }
+
+
+    /* =========================================================
+       DASHBOARD CARDS
+       ========================================================= */
+
+    .dashboard-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+    }
+
+
+    .dashboard-card {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 25px;
+        min-height: 190px;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+        transition: all 0.25s ease;
+        overflow: hidden;
+    }
+
+
+        .dashboard-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #334155;
+        }
+
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10);
+        }
+
+
+    /* =========================================================
+       CARD ICON
+       ========================================================= */
+
+    .card-top {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+
+
+    .card-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+    }
+
+
+    .employee-icon {
+        background: #eff6ff;
+    }
+
+
+    .vehicle-icon {
+        background: #f1f5f9;
+    }
+
+
+    .penalty-icon {
+        background: #fff7ed;
+    }
+
+
+    .completed-icon {
+        background: #f0fdf4;
+    }
+
+
+    /* =========================================================
+       CARD TEXT
+       ========================================================= */
+
+    .card-title {
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 6px;
+    }
+
+
+    .card-value {
+        color: #0f172a;
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+
+
+    .card-description {
+        color: #94a3b8;
+        font-size: 12px;
+    }
+
+
+    /* =========================================================
+       PENALTY CHART
+       ========================================================= */
+
+    .penalty-chart-section {
+        margin-top: 30px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+    }
+
+
+    .chart-header {
+        margin-bottom: 28px;
+    }
+
+
+    .chart-label {
+        display: block;
+        color: #64748b;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.1px;
+        margin-bottom: 6px;
+    }
+
+
+    .chart-header h2 {
+        margin: 0 0 6px 0;
+        color: #0f172a;
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+
+    .chart-header p {
+        margin: 0;
+        color: #94a3b8;
+        font-size: 13px;
+    }
+
+
+    .penalty-chart {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
+
+
+    .chart-row {
+        display: grid;
+        grid-template-columns: 150px 1fr 45px;
+        align-items: center;
+        gap: 15px;
+    }
+
+
+    .chart-name {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+
+    .status-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+
+        .status-dot.new {
+            background: #3b82f6;
+        }
+
+
+        .status-dot.manager {
+            background: #f59e0b;
+        }
+
+
+        .status-dot.finance {
+            background: #8b5cf6;
+        }
+
+
+        .status-dot.completed {
+            background: #22c55e;
+        }
+
+
+        .status-dot.rejected {
+            background: #ef4444;
+        }
+
+
+    .chart-bar-container {
+        height: 12px;
+        background: #f1f5f9;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+
+    .chart-bar {
+        height: 100%;
+        min-width: 0;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+
+
+    .new-bar {
+        background: #3b82f6;
+    }
+
+
+    .manager-bar {
+        background: #f59e0b;
+    }
+
+
+    .finance-bar {
+        background: #8b5cf6;
+    }
+
+
+    .completed-bar {
+        background: #22c55e;
+    }
+
+
+    .rejected-bar {
+        background: #ef4444;
+    }
+
+
+    .chart-count {
+        text-align: right;
+        color: #0f172a;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @@media (max-width: 1100px) {
+
+        .dashboard-cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+
+    @@media (max-width: 600px) {
+
+        .dashboard-page {
+            padding: 20px;
+        }
+
+
+        .dashboard-header h1 {
+            font-size: 28px;
+        }
+
+
+        .dashboard-cards {
+            grid-template-columns: 1fr;
+        }
+
+
+        .chart-row {
+            grid-template-columns: 120px 1fr 35px;
+            gap: 10px;
+        }
+
+
+        .chart-name {
+            font-size: 12px;
+        }
+    }
+
+</style>
+
