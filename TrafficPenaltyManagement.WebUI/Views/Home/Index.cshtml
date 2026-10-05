@@ -1,7 +1,8 @@
-﻿@model TrafficPenaltyManagement.Application.Dtos.DashboardDtos.DashboardDto
+﻿
+@model TrafficPenaltyManagement.Application.Dtos.DashboardDtos.DashboardDto
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
 <div class="dashboard-page">
@@ -14,7 +15,7 @@
             <h1>Ana Dashboard</h1>
 
             <p>
-                Sistemin genel durumunu takip edebilirsiniz.
+                Sistemin genel durumunu ve güncel verileri buradan takip edebilirsiniz.
             </p>
         </div>
     </div>
@@ -121,14 +122,14 @@
     </div>
 
 
-
+    <!-- CEZA DURUMLARI -->
     <div class="penalty-chart-section">
 
         <div class="chart-header">
 
             <div>
                 <span class="chart-label">
-                    Ceza Analizi
+                    CEZA ANALİZİ
                 </span>
 
                 <h2>
@@ -146,7 +147,7 @@
         <div class="penalty-chart">
 
 
-
+            <!-- NEW -->
             <div class="chart-row">
 
                 <div class="chart-name">
@@ -176,7 +177,7 @@
             </div>
 
 
-
+            <!-- MANAGER APPROVAL -->
             <div class="chart-row">
 
                 <div class="chart-name">
@@ -206,7 +207,7 @@
             </div>
 
 
-
+            <!-- FINANCE APPROVAL -->
             <div class="chart-row">
 
                 <div class="chart-name">
@@ -236,7 +237,7 @@
             </div>
 
 
-
+            <!-- COMPLETED -->
             <div class="chart-row">
 
                 <div class="chart-name">
@@ -266,7 +267,7 @@
             </div>
 
 
-
+            <!-- REJECTED -->
             <div class="chart-row">
 
                 <div class="chart-name">
@@ -305,7 +306,9 @@
 
 <style>
 
-
+    /* =========================================================
+       DASHBOARD
+       ========================================================= */
 
     .dashboard-page {
         padding: 35px;
@@ -314,6 +317,9 @@
     }
 
 
+    /* =========================================================
+       HEADER
+       ========================================================= */
 
     .dashboard-header {
         margin-bottom: 35px;
@@ -346,8 +352,8 @@
 
 
     /* =========================================================
-           DASHBOARD CARDS
-           ========================================================= */
+       DASHBOARD CARDS
+       ========================================================= */
 
     .dashboard-cards {
         display: grid;
@@ -387,8 +393,8 @@
 
 
     /* =========================================================
-           CARD ICON
-           ========================================================= */
+       CARD ICON
+       ========================================================= */
 
     .card-top {
         display: flex;
@@ -429,8 +435,8 @@
 
 
     /* =========================================================
-           CARD TEXT
-           ========================================================= */
+       CARD TEXT
+       ========================================================= */
 
     .card-title {
         color: #64748b;
@@ -456,8 +462,8 @@
 
 
     /* =========================================================
-           PENALTY CHART
-           ========================================================= */
+       PENALTY CHART
+       ========================================================= */
 
     .penalty-chart-section {
         margin-top: 30px;
@@ -607,8 +613,8 @@
 
 
     /* =========================================================
-           RESPONSIVE
-           ========================================================= */
+       RESPONSIVE
+       ========================================================= */
 
     @@media (max-width: 1100px) {
 
@@ -647,3 +653,4 @@
     }
 
 </style>
+
