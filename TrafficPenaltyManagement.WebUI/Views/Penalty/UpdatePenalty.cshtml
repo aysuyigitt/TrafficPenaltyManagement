@@ -1,0 +1,116 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@model TrafficPenaltyManagement.Application.Dtos.PenaltyDtos.UpdatePenaltyDto
+
+@{
+    ViewData["Title"] = "Ceza Düzenle";
+}
+
+<div class="container">
+
+    <h2 class="mb-4">Ceza Düzenle</h2>
+
+    <form asp-action="UpdatePenalty"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input asp-for="Id" type="hidden" />
+
+        <div class="mb-3">
+            <label asp-for="Plate" class="form-label">
+                Araç Plakası
+            </label>
+
+            <input asp-for="Plate"
+                   class="form-control"
+                   readonly />
+
+            <span asp-validation-for="Plate"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PenaltyTypeId" class="form-label">
+                Ceza Tipi
+            </label>
+
+            <select asp-for="PenaltyTypeId"
+                    class="form-select"
+                    asp-items="@(new SelectList(ViewBag.PenaltyTypes, "Id", "Name"))">
+
+                <option value="">
+                    Ceza Tipi Seçiniz
+                </option>
+
+            </select>
+
+            <span asp-validation-for="PenaltyTypeId"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Amount" class="form-label">
+                Ceza Tutarı (₺)
+            </label>
+
+            <input asp-for="Amount"
+                   class="form-control"
+                   type="number"
+                   step="0.01" />
+
+            <span asp-validation-for="Amount"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PenaltyDate" class="form-label">
+                Ceza Tarihi
+            </label>
+
+            <input asp-for="PenaltyDate"
+                   class="form-control"
+                   type="date" />
+
+            <span asp-validation-for="PenaltyDate"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Document" class="form-label">
+                Ceza Belgesi
+            </label>
+
+            <input asp-for="Document"
+                   class="form-control"
+                   type="file"
+                   accept=".pdf" />
+
+            <span asp-validation-for="Document"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary">
+            Güncelle
+        </button>
+
+        <a asp-action="PenaltyList"
+           class="btn btn-secondary">
+            İptal
+        </a>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
