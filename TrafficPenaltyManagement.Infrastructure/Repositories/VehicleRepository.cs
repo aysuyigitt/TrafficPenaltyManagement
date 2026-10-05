@@ -10,27 +10,13 @@ using TrafficPenaltyManagement.Infrastructure.Persistence;
 
 namespace TrafficPenaltyManagement.Infrastructure.Repositories
 {
-    public class VehicleRepository : IVehicleRepository
+    public class VehicleRepository : GenericRepository<Vehicle>, IVehicleRepository
     {
         private readonly AppDbContext _context;
 
-        public VehicleRepository(AppDbContext context)
+        public VehicleRepository(AppDbContext context) : base(context) 
         {
             _context = context;
-        }
-
-        public async Task<Vehicle> AddAsync(Vehicle vehicle)
-        {
-            await _context.Vehicles.AddAsync(vehicle);
-            await _context.SaveChangesAsync();
-
-            return vehicle;
-        }
-
-        public async Task<List<Vehicle>> GetAllAsync()
-        {
-            return await _context.Vehicles.ToListAsync();
-
         }
 
         public async Task<Vehicle?> GetByPlateAsync(string plate)

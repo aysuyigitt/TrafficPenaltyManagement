@@ -20,5 +20,9 @@ namespace TrafficPenaltyManagement.Application.Services.PenaltyServices
         Task<List<PenaltyApprovalHistoryDto>> GetPenaltyHistoryAsync(int penaltyId);
 
         Task<List<PenaltyDto>> GetAllPenaltiesAsync();
+
+        Task<PenaltyDto?> GetPenaltyByIdAsync(int penaltyId);
+
+        Task UpdatePenaltyAsync(UpdatePenaltyDto updatePenaltyDto);
     }
 }

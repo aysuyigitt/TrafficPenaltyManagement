@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TrafficPenaltyManagement.Application.Dtos.PenaltyDtos;
+using TrafficPenaltyManagement.Application.Services.EmployeeServices;
 using TrafficPenaltyManagement.Application.Services.PenaltyServices;
+using TrafficPenaltyManagement.Application.Services.PenaltyTypeServices;
 using TrafficPenaltyManagement.Infrastructure.Identitiy;
 
 namespace TrafficPenaltyManagement.WebUI.Controllers
@@ -11,11 +13,15 @@ namespace TrafficPenaltyManagement.WebUI.Controllers
     {
         private readonly IPenaltyService _penaltyService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmployeeService _employeeService;
+        private readonly IPenaltyTypeService _penaltyTypeService;
 
-        public PenaltyController(IPenaltyService penaltyService, UserManager<ApplicationUser> userManager)
+        public PenaltyController(IPenaltyService penaltyService, UserManager<ApplicationUser> userManager, IEmployeeService employeeService, IPenaltyTypeService penaltyTypeService)
         {
             _penaltyService = penaltyService;
             _userManager = userManager;
+            _employeeService = employeeService;
+            _penaltyTypeService = penaltyTypeService;
         }
 
         [HttpGet]
@@ -36,8 +42,14 @@ namespace TrafficPenaltyManagement.WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreatePenalty()
+        public async Task<IActionResult> CreatePenalty()
         {
+            var employees = await _employeeService.GetAllEmployeesAsync();
+            var penaltyTypes = await _penaltyTypeService.GetAllPenaltyTypeAsync();
+
+            ViewBag.Employees = employees;
+            ViewBag.PenaltyTypes = penaltyTypes;
+
             return View();
         }
 
@@ -90,6 +102,45 @@ namespace TrafficPenaltyManagement.WebUI.Controllers
 
             return RedirectToAction("PenaltyList");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdatePenalty(int id)
+        {
+            var penalty = await _penaltyService.GetPenaltyByIdAsync(id);
+
+            if (penalty == null)
+            {
+                return NotFound();
+            }
+
+            var employees = await _employeeService.GetAllEmployeesAsync();
+            var penaltyTypes = await _penaltyTypeService.GetAllPenaltyTypeAsync();
+
+            ViewBag.Employees = employees;
+            ViewBag.PenaltyTypes = penaltyTypes;
+
+            var updateDto = new UpdatePenaltyDto
+            {
+                Id = penalty.Id,
+                Plate = penalty.Plate,
+                Amount = penalty.Amount,
+                PenaltyDate = penalty.PenaltyDate,
+                PenaltyTypeId = penalty.PenaltyTypeId
+            };
+
+            return View(updateDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePenalty(UpdatePenaltyDto updatePenaltyDto)
+        {
+            await _penaltyService.UpdatePenaltyAsync(updatePenaltyDto);
+
+                return RedirectToAction("PenaltyList");
+            
+            }
+        
+
 
         [HttpGet]
         public async Task<IActionResult> History(int id)

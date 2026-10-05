@@ -21,5 +21,8 @@ namespace TrafficPenaltyManagement.Infrastructure.Persistence
         public DbSet<Penalty> Penalties { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<PenaltyApprovalHistory> PenaltyApprovalHistories { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<VehicleAssignment> VehicleAssignments { get; set; }
+        public DbSet<PenaltyType> PenaltyTypes { get; set; }
     }
 }

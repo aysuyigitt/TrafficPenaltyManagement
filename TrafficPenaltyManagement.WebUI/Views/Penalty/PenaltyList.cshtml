@@ -1,4 +1,5 @@
-﻿@model List<TrafficPenaltyManagement.Application.Dtos.PenaltyDtos.PenaltyDto>
+﻿
+@model List<TrafficPenaltyManagement.Application.Dtos.PenaltyDtos.PenaltyDto>
 
 @{
     ViewData["Title"] = "Ceza Listesi";
@@ -164,6 +165,10 @@
                 <thead>
                     <tr>
                         <th>Plaka</th>
+                        <th>Çalışan</th>
+                        <th>Ceza Tipi</th>
+                        <th>Ceza Tarihi</th>
+                        <th>Ceza Tutarı</th>
                         <th>Durum</th>
                         <th>Ret Nedeni</th>
                         <th>İşlemler</th>
@@ -175,7 +180,7 @@
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="4">
+                            <td colspan="8">
                                 <div class="empty-message">
                                     Henüz kayıtlı bir trafik cezası bulunmamaktadır.
                                 </div>
@@ -192,6 +197,42 @@
                                     <strong>
                                         @penalty.Plate
                                     </strong>
+                                </td>
+
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(penalty.EmployeeName))
+                                    {
+                                        <strong>
+                                            @penalty.EmployeeName
+                                        </strong>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            Atanmamış
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(penalty.PenaltyTypeName))
+                                    {
+                                        @penalty.PenaltyTypeName
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            —
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @penalty.PenaltyDate.ToString("dd.MM.yyyy")
+                                </td>
+
+                                <td>
+                                    @penalty.Amount.ToString("N2") ₺
                                 </td>
 
                                 <td>
@@ -251,6 +292,14 @@
 
                                 <td>
                                     <div class="action-buttons">
+
+                                        <!-- DÜZENLE -->
+                                        <a asp-action="UpdatePenalty"
+                                           asp-route-id="@penalty.Id"
+                                           class="btn btn-warning btn-sm">
+                                            Düzenle
+                                        </a>
+
                                         @* NEW - SADECE MANAGER *@
                                         @if (penalty.Status == TrafficPenaltyManagement.Domain.Enums.PenaltyStatus.New &&
                                                                         userRole == TrafficPenaltyManagement.Domain.Enums.UserRole.Manager)
@@ -317,7 +366,7 @@
                                             </form>
                                         }
 
-                                   
+                                        @* FINANCE APPROVAL - SADECE FINANCE *@
                                         @if (penalty.Status == TrafficPenaltyManagement.Domain.Enums.PenaltyStatus.FinanceApproval &&
                                                                         userRole == TrafficPenaltyManagement.Domain.Enums.UserRole.Finance)
                                         {
@@ -350,9 +399,7 @@
                                             </form>
                                         }
 
-                                 
-                                        @if (penalty.Status == TrafficPenaltyManagement.Domain.Enums.PenaltyStatus.Completed ||
-                                                                        penalty.Status == TrafficPenaltyManagement.Domain.Enums.PenaltyStatus.Rejected)
+                                        @if (penalty.Status == TrafficPenaltyManagement.Domain.Enums.PenaltyStatus.Completed || penalty.Status == TrafficPenaltyManagement.Domain.Enums.PenaltyStatus.Rejected)
                                         {
                                             <span class="text-muted small">
                                                 İşlem tamamlandı
@@ -379,3 +426,4 @@
 
     </div>
 </div>
+

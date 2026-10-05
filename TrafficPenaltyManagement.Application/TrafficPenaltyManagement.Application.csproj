@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.13" />
   </ItemGroup>
 
   <ItemGroup>

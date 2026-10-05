@@ -18,6 +18,9 @@ namespace TrafficPenaltyManagement.Domain.Entitites
         public string Brand { get; set; }
 
         public string Model { get; set; }
+
         public ICollection<Penalty> Penalties { get; set; }
+
+        public ICollection<VehicleAssignment> VehicleAssignments { get; set; }
     }
 }

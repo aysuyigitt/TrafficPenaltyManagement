@@ -1,0 +1,61 @@
+﻿@model TrafficPenaltyManagement.Application.Dtos.PenaltyDtos.PenaltyTypeDto
+
+@{
+    ViewData["Title"] = "Ceza Türünü Düzenle";
+}
+
+<div class="container">
+    <h2 class="mb-4">Ceza Türünü Düzenle</h2>
+
+    <form asp-action="UpdatePenaltyType" method="post">
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">
+                Ceza Türü
+            </label>
+
+            <input asp-for="Name"
+                   class="form-control"
+                   placeholder="Ceza türü giriniz" />
+
+            <span asp-validation-for="Name"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">
+                Açıklama
+            </label>
+
+            <textarea asp-for="Description"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Ceza türü hakkında açıklama giriniz"></textarea>
+
+            <span asp-validation-for="Description"
+                  class="text-danger">
+            </span>
+        </div>
+
+
+        <button type="submit"
+                class="btn btn-primary">
+            Güncelle
+        </button>
+
+        <a asp-action="PenaltyTypeList"
+           class="btn btn-secondary">
+            İptal
+        </a>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

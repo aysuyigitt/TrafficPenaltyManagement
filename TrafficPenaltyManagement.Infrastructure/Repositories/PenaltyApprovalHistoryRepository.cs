@@ -10,21 +10,13 @@ using TrafficPenaltyManagement.Infrastructure.Persistence;
 
 namespace TrafficPenaltyManagement.Infrastructure.Repositories
 {
-    public class PenaltyApprovalHistoryRepository : IPenaltyApprovalHistoryRepository
+    public class PenaltyApprovalHistoryRepository : GenericRepository<PenaltyApprovalHistory>, IPenaltyApprovalHistoryRepository
     {
         private readonly AppDbContext _context;
 
-        public PenaltyApprovalHistoryRepository(AppDbContext context)
+        public PenaltyApprovalHistoryRepository(AppDbContext context) : base(context) 
         {
             _context = context;
-        }
-
-        public async Task<PenaltyApprovalHistory> AddAsync(PenaltyApprovalHistory history)
-        {
-            await _context.PenaltyApprovalHistories.AddAsync(history);
-            await _context.SaveChangesAsync();
-
-            return history;
         }
 
         public async Task<List<PenaltyApprovalHistory>> GetByPenaltyIdAsync(int penaltyId)

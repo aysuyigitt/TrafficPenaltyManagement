@@ -1,0 +1,147 @@
+﻿```cshtml
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@model TrafficPenaltyManagement.Application.Dtos.EmployeeDtos.CreateEmployeeDto
+
+@{
+    ViewData["Title"] = "Yeni Çalışan";
+}
+
+<div class="container">
+
+    <h2 class="mb-4">Yeni Çalışan</h2>
+
+    <form asp-action="CreateEmployee" method="post">
+
+        <!-- Ad -->
+        <div class="mb-3">
+            <label asp-for="FirstName" class="form-label">
+                Ad
+            </label>
+
+            <input asp-for="FirstName"
+                   class="form-control"
+                   placeholder="Çalışanın adı" />
+
+            <span asp-validation-for="FirstName"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <!-- Soyad -->
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label">
+                Soyad
+            </label>
+
+            <input asp-for="LastName"
+                   class="form-control"
+                   placeholder="Çalışanın soyadı" />
+
+            <span asp-validation-for="LastName"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input asp-for="EMail" class="form-control" />
+        </div>
+
+        <!-- Departman -->
+        <div class="mb-3">
+            <label asp-for="Department" class="form-label">
+                Departman
+            </label>
+
+            <input asp-for="Department"
+                   class="form-control"
+                   placeholder="Departman" />
+
+            <span asp-validation-for="Department"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <!-- Pozisyon -->
+        <div class="mb-3">
+            <label asp-for="Position" class="form-label">
+                Pozisyon
+            </label>
+
+            <input asp-for="Position"
+                   class="form-control"
+                   placeholder="Pozisyon" />
+
+            <span asp-validation-for="Position"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label>Şube</label>
+            <input asp-for="Branch" class="form-control" />
+        </div>
+
+        <!-- Telefon -->
+        <div class="mb-3">
+            <label asp-for="PhoneNumber" class="form-label">
+                Telefon
+            </label>
+
+            <input asp-for="PhoneNumber"
+                   class="form-control"
+                   placeholder="Telefon numarası" />
+
+            <span asp-validation-for="PhoneNumber"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <!-- Araç -->
+        <div class="mb-3">
+            <label asp-for="VehicleId" class="form-label">
+                Araç
+            </label>
+
+            <select asp-for="VehicleId"
+                    class="form-select"
+                    asp-items="@(new SelectList(ViewBag.Vehicles, "Id", "Plate"))">
+
+                <option value="">
+                    Araç Seçiniz
+                </option>
+
+            </select>
+
+            <span asp-validation-for="VehicleId"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <!-- Aktif -->
+        <div class="form-check mb-3">
+            <input asp-for="IsActive"
+                   class="form-check-input" />
+
+            <label asp-for="IsActive"
+                   class="form-check-label">
+                Aktif
+            </label>
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary">
+            Çalışan Oluştur
+        </button>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+```

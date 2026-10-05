@@ -1,131 +1,150 @@
-## Traffic Penalty Management
+#  Traffic Penalty Management
 
-.NET 9 ve ASP.NET Core MVC kullanılarak geliştirilmiş, trafik cezalarının oluşturulması, takip edilmesi ve rol bazlı onay süreçlerinin yönetilmesini sağlayan Trafik Cezası Yönetim ve Onay Uygulaması.
+.NET 9 ve ASP.NET Core MVC kullanÄ±larak geliÅŸtirilmiÅŸ, trafik cezalarÄ±nÄ±n oluÅŸturulmasÄ±, takip edilmesi ve rol bazlÄ± onay sÃ¼reÃ§lerinin yÃ¶netilmesini saÄŸlayan Trafik CezasÄ± YÃ¶netim ve Onay UygulamasÄ±.
 
-## Proje Özellikleri
+---
 
-## Araç Yönetimi 
-Araçların plaka, tip, marka ve model bilgileriyle sisteme kaydedilmesini ve listelenmesini sağlar.
+##  Proje Ã–zellikleri
 
-## Rol Bazlı Onay Süreci
-Trafik cezaları, kullanıcı rollerine göre belirlenen aşağıdaki iş akışından geçer: New -> Manager Approval -> FinanceApproval -> Completed
+### AraÃ§ YÃ¶netimi
+AraÃ§larÄ±n plaka, tip, marka ve model bilgileriyle sisteme kaydedilmesini ve listelenmesini saÄŸlar.
 
-Yetkili kullanıcılar kendi sorumluluklarındaki aşamalarda cezaları onaylayabilir. Uygun aşamalarda ceza reddedilebilir ve ret nedeni zorunlu olarak kayıt altına alınır.
+### Rol BazlÄ± Onay SÃ¼reci
+Trafik cezalarÄ±, kullanÄ±cÄ± rollerine gÃ¶re belirlenen aÅŸaÄŸÄ±daki iÅŸ akÄ±ÅŸÄ±ndan geÃ§er:
+`New -> Manager Approval -> FinanceApproval -> Completed`
 
-## Onay Geçmişi
+Yetkili kullanÄ±cÄ±lar kendi sorumluluklarÄ±ndaki aÅŸamalarda cezalarÄ± onaylayabilir. Uygun aÅŸamalarda ceza reddedilebilir ve ret nedeni zorunlu olarak kayÄ±t altÄ±na alÄ±nÄ±r.
 
-Cezalar üzerinde gerçekleştirilen tüm onay ve ret işlemleri kayıt altına alınır.
+### Onay GeÃ§miÅŸi
+Cezalar Ã¼zerinde gerÃ§ekleÅŸtirilen tÃ¼m onay ve ret iÅŸlemleri kayÄ±t altÄ±na alÄ±nÄ±r. Onay geÃ§miÅŸinde aÅŸaÄŸÄ±daki bilgiler gÃ¶rÃ¼ntÃ¼lenebilir:
+* Ä°ÅŸlemi gerÃ§ekleÅŸtiren kullanÄ±cÄ±
+* Ä°ÅŸlem tarihi
+* Ä°ÅŸlem tipi
+* Ret nedeni
+* Ã–nceki durum
+* Yeni durum
 
-Onay geçmişinde aşağıdaki bilgiler görüntülenebilir:
+---
 
-İşlemi gerçekleştiren kullanıcı, İşlem tarihi, İşlem tip, Ret nedeni, Önceki durum, Yeni durum
+##  KullanÄ±lan Teknolojiler
+* .NET 9
+* ASP.NET Core MVC
+* Entity Framework Core
+* SQL Server
+* ASP.NET Core Identity
+* AutoMapper
+* Bootstrap
+* Git
 
-## Kullanılan Teknolojiler
+---
 
-.NET 9
-ASP.NET Core MVC
-Entity Framework Core
-SQL Server
-ASP.NET Core Identity
-AutoMapper
-Bootstrap
-Git
+##  Proje Mimarisi
 
-## Proje Mimarisi
+Proje, katmanlÄ± mimari yaklaÅŸÄ±mÄ± kullanÄ±larak geliÅŸtirilmiÅŸtir.
 
-Proje, katmanlı mimari yaklaşımı kullanılarak geliştirilmiştir.
-
+```text
 TrafficPenaltyManagement
-|
-+-- Domain
-|   +-- Entities
-|   +-- Enums
-|
-+-- Application
-|   +-- DTOs
-|   +-- Interfaces
-|   +-- Services
-|   +-- Mapping
-|
-+-- Infrastructure
-|   +-- Identity
-|   +-- Repositories
-|   +-- Data
-|
-+-- WebUI
-    +-- Controllers
-    +-- Views
-    +-- wwwroot
+â”‚
+â”œâ”€â”€ Domain
+â”‚   â”œâ”€â”€ Entities
+â”‚   â””â”€â”€ Enums
+â”‚
+â”œâ”€â”€ Application
+â”‚   â”œâ”€â”€ DTOs
+â”‚   â”œâ”€â”€ Interfaces
+â”‚   â”œâ”€â”€ Services
+â”‚   â””â”€â”€ Mapping
+â”‚
+â”œâ”€â”€ Infrastructure
+â”‚   â”œâ”€â”€ Identity
+â”‚   â”œâ”€â”€ Repositories
+â”‚   â””â”€â”€ Data
+â”‚
+â””â”€â”€ WebUI
+    â”œâ”€â”€ Controllers
+    â”œâ”€â”€ Views
+    â””â”€â”€ wwwroot
+```
 
+### KatmanlarÄ±n SorumluluklarÄ±
+* **Domain:** Entity ve enum gibi temel iÅŸ modellerini iÃ§erir.
+* **Application:** DTO, interface, servis ve iÅŸ kurallarÄ±nÄ± iÃ§erir.
+* **Infrastructure:** Entity Framework Core, SQL Server, Identity ve repository iÅŸlemlerini iÃ§erir.
+* **WebUI:** MVC Controller ve View katmanÄ±nÄ± iÃ§erir.
 
-## Katmanların Sorumlulukları
-Domain: Entity ve enum gibi temel iş modellerini içerir.
-Application: DTO, interface, servis ve iş kurallarını içerir.
-Infrastructure: Entity Framework Core, SQL Server, Identity ve repository işlemlerini içerir.
-WebUI: MVC Controller ve View katmanını içerir.
+---
 
-Kurulum ve Çalıştırma
-Gereksinimler
-.NET 9 SDK
-Microsoft SQL Server
-Visual Studio 2022
-Git
+##  Kurulum ve Ã‡alÄ±ÅŸtÄ±rma
 
-## 1. Projeyi Klonlama
+### Gereksinimler
+* .NET 9 SDK
+* Microsoft SQL Server
+* Visual Studio 2022
+* Git
+
+### 1. Projeyi Klonlama
+```bash
 git clone <REPOSITORY_URL>
 cd TrafficPenaltyManagement
+```
 
-## 2. Veritabanı Bağlantısını Yapılandırma
+### 2. VeritabanÄ± BaÄŸlantÄ±sÄ±nÄ± YapÄ±landÄ±rma
+`TrafficPenaltyManagement.WebUI/appsettings.json` iÃ§erisindeki connection string'i kendi SQL Server ortamÄ±nÄ±za gÃ¶re dÃ¼zenleyin.
 
-TrafficPenaltyManagement.WebUI/appsettings.json içerisindeki connection string'i kendi SQL Server ortamınıza göre düzenleyin.
-
-Örnek:
-
+Ã–rnek:
+```json
 "ConnectionStrings": {
   "DefaultConnection": "Server=localhost;Database=TrafficPenaltyManagementDb;Uid=sa;Pwd=SIFRENIZ;TrustServerCertificate=True;"
 }
+```
 
+### 3. VeritabanÄ±nÄ± OluÅŸturma
+Visual Studio iÃ§erisinde **Tools -> NuGet Package Manager -> Package Manager Console** kullanÄ±larak mevcut migration'lar veritabanÄ±na uygulanabilir:
+```powershell
+Update-Database
+```
 
-## 3. Veritabanını Oluşturma
-
-Visual Studio içerisinde Tools, NuGet Package Manager ve Package Manager Console kullanılarak mevcut migration'lar veritabanına uygulanabilir:
-
-Update-Database : Yeni bir entity veya veritabanı değişikliği yapılması durumunda yeni migration oluşturulabilir:
-
+Yeni bir entity veya veritabanÄ± deÄŸiÅŸikliÄŸi yapÄ±lmasÄ± durumunda yeni migration oluÅŸturulabilir:
+```powershell
 Add-Migration MigrationName
 Update-Database
+```
 
-## 4. Projeyi Başlatma
+### 4. Projeyi BaÅŸlatma
+`TrafficPenaltyManagement.WebUI` projesini baÅŸlangÄ±Ã§ projesi olarak seÃ§in ve **F5** tuÅŸuna basarak uygulamayÄ± Ã§alÄ±ÅŸtÄ±rÄ±n.
 
-TrafficPenaltyManagement.WebUI projesini başlangıç projesi olarak seçin ve F5 tuşuna basarak uygulamayı çalıştırın.
+---
+
+##  Ä°lk GiriÅŸ ve Test AkÄ±ÅŸÄ±
+
+1. Uygulama Ã§alÄ±ÅŸtÄ±rÄ±ldÄ±ktan sonra `/Register/Index` adresinden yeni bir kullanÄ±cÄ± oluÅŸturun.
+2. `/Login/Index` Ã¼zerinden sisteme giriÅŸ yapÄ±n.
+3. Onay sÃ¼recini test etmek iÃ§in gerekli rollere sahip kullanÄ±cÄ±lar oluÅŸturun.
+4. Bir araÃ§ oluÅŸturun.
+5. OluÅŸturulan araÃ§ Ã¼zerinden yeni bir trafik cezasÄ± oluÅŸturun.
+6. CezanÄ±n rol bazlÄ± onay sÃ¼recini takip edin.
 
 
-
-## İlk Giriş ve Test Akışı
-Uygulama çalıştırıldıktan sonra /Register/Index adresinden yeni bir kullanıcı oluşturun.
-/Login/Index üzerinden sisteme giriş yapın.
-Onay sürecini test etmek için gerekli rollere sahip kullanıcılar oluşturun.
-Bir araç oluşturun.
-Oluşturulan araç üzerinden yeni bir trafik cezası oluşturun.
-Cezanın rol bazlı onay sürecini takip edin.
-
-
-## Ekran Görüntüleri
+## Ekran GÃ¶rÃ¼ntÃ¼leri
 
 ### Login
 
-![Login](images/login.png)
+<img width="1912" height="493" alt="Image" src="https://github.com/user-attachments/assets/05c73f6f-0676-426e-a6a9-a195e2b8366b" />
 
-### Araç Yönetimi
+### AraÃ§ YÃ¶netimi
 
-![Araç Yönetimi](images/vehicles.png)
+<img width="1914" height="774" alt="Image" src="https://github.com/user-attachments/assets/70420516-6f33-48f8-8b0c-0190b8894593" />
+
+<img width="1052" height="642" alt="Image" src="https://github.com/user-attachments/assets/03910ef3-10b6-451a-861a-c7e30319e4cd" />
 
 ### Ceza Listesi
 
-![Ceza Listesi](images/penalties.png)
+<img width="1918" height="541" alt="Image" src="https://github.com/user-attachments/assets/286ce84e-bc6c-4ae9-bcb9-e240596c6d85" />
 
-### Onay Geçmişi
+<img width="972" height="375" alt="Image" src="https://github.com/user-attachments/assets/cdad443d-7395-4e27-aadd-cf338d695338" />
 
-![Onay Geçmişi](images/history.png)
+### Onay GeÃ§miÅŸi
+
+<img width="1919" height="410" alt="Image" src="https://github.com/user-attachments/assets/71c04b6f-eb49-4c95-b88e-ead8ac1123be" />
 
 

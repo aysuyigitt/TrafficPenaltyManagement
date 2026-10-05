@@ -1,0 +1,493 @@
+﻿@using TrafficPenaltyManagement.Application.Dtos.EmployeeDtos
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model EmployeeDto
+
+@{
+    ViewData["Title"] = "Çalışan Güncelle";
+}
+
+<style>
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body {
+        background: #f5f7fb !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+        main > .container,
+        main > .container-fluid {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+    .employee-page {
+        width: 100%;
+        min-height: calc(100vh - 56px);
+        background: #f5f7fb;
+        padding: 35px 45px 50px;
+        box-sizing: border-box;
+    }
+
+    .employee-content {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 25px;
+    }
+
+    .page-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+        color: #6b7280;
+        margin: 0;
+        font-size: 15px;
+    }
+
+    .form-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        box-shadow: 0 3px 15px rgba(0,0,0,.03);
+        overflow: hidden;
+    }
+
+    .form-header {
+        padding: 24px 30px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .form-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .form-description {
+        margin: 5px 0 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .form-body {
+        padding: 30px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px 25px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+    .form-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        font-size: 14px;
+        color: #111827;
+        background: white;
+        outline: none;
+        transition: .2s;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+        }
+
+    .validation-message {
+        color: #dc2626;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .status-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 9px;
+        padding: 12px 14px;
+    }
+
+    .status-checkbox {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        accent-color: #2563eb;
+    }
+
+    .status-label {
+        color: #374151;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        padding: 20px 30px;
+        border-top: 1px solid #e5e7eb;
+        background: #fafafa;
+    }
+
+    .cancel-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 20px;
+        border-radius: 9px;
+        background: white;
+        color: #374151;
+        border: 1px solid #d1d5db;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+        .cancel-btn:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+    .update-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 22px;
+        border-radius: 9px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+        .update-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 18px;
+        color: #6b7280;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+    @@media (max-width: 768px) {
+
+        .employee-page {
+            padding: 25px 15px 40px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full-width {
+            grid-column: auto;
+        }
+
+        .form-body {
+            padding: 22px;
+        }
+
+        .form-header {
+            padding: 20px 22px;
+        }
+
+        .form-footer {
+            padding: 18px 22px;
+            flex-direction: column-reverse;
+        }
+
+        .cancel-btn,
+        .update-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="employee-page">
+
+    <div class="employee-content">
+
+        <a asp-controller="Employee"
+           asp-action="EmployeeList"
+           class="back-link">
+            ← Çalışan Listesine Dön
+        </a>
+
+
+        <div class="page-header">
+
+            <h1 class="page-title">
+                Çalışan Güncelle
+            </h1>
+
+            <p class="page-subtitle">
+                Çalışan bilgilerini güncelleyebilirsiniz.
+            </p>
+
+        </div>
+
+
+        <div class="form-card">
+
+            <div class="form-header">
+
+                <h2 class="form-title">
+                    Çalışan Bilgileri
+                </h2>
+
+                <p class="form-description">
+                    Aşağıdaki bilgileri düzenleyerek çalışan kaydını güncelleyebilirsiniz.
+                </p>
+
+            </div>
+
+
+            <form asp-action="Edit"
+                  asp-route-id="@Model.Id"
+                  method="post">
+
+                <input type="hidden"
+                       name="id"
+                       value="@Model.Id" />
+
+
+                <div class="form-body">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label asp-for="FirstName"
+                                   class="form-label">
+                                Ad
+                            </label>
+
+                            <input asp-for="FirstName"
+                                   class="form-control"
+                                   placeholder="Çalışanın adını giriniz" />
+
+                            <span asp-validation-for="FirstName"
+                                  class="validation-message">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label asp-for="LastName"
+                                   class="form-label">
+                                Soyad
+                            </label>
+
+                            <input asp-for="LastName"
+                                   class="form-control"
+                                   placeholder="Çalışanın soyadını giriniz" />
+
+                            <span asp-validation-for="LastName"
+                                  class="validation-message">
+                            </span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input asp-for="EMail" class="form-control" />
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label asp-for="Department"
+                                   class="form-label">
+                                Departman
+                            </label>
+
+                            <input asp-for="Department"
+                                   class="form-control"
+                                   placeholder="Departman giriniz" />
+
+                            <span asp-validation-for="Department"
+                                  class="validation-message">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label asp-for="Position"
+                                   class="form-label">
+                                Pozisyon
+                            </label>
+
+                            <input asp-for="Position"
+                                   class="form-control"
+                                   placeholder="Pozisyon giriniz" />
+
+                            <span asp-validation-for="Position"
+                                  class="validation-message">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label asp-for="PhoneNumber"
+                                   class="form-label">
+                                Telefon
+                            </label>
+
+                            <input asp-for="PhoneNumber"
+                                   class="form-control"
+                                   placeholder="Telefon numarası giriniz" />
+
+                            <span asp-validation-for="PhoneNumber"
+                                  class="validation-message">
+                            </span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Şube</label>
+                            <input asp-for="Branch" class="form-control" />
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label asp-for="VehicleId"
+                                   class="form-label">
+                                Araç
+                            </label>
+
+                            <select asp-for="VehicleId"
+                                    class="form-control"
+                                    asp-items="@(new SelectList(ViewBag.Vehicles, "Id", "Plate"))">
+
+                                <option value="">Araç seçiniz</option>
+
+                            </select>
+
+                            <span asp-validation-for="VehicleId"
+                                  class="validation-message">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="form-label">
+                                Çalışma Durumu
+                            </label>
+
+                            <div class="status-box">
+
+                                <input asp-for="IsActive"
+                                       class="status-checkbox"
+                                       id="IsActive" />
+
+                                <label for="IsActive"
+                                       class="status-label">
+                                    Çalışan aktif
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-footer">
+
+                    <a asp-controller="Employee"
+                       asp-action="EmployeeList"
+                       class="cancel-btn">
+                        İptal
+                    </a>
+
+                    <button type="submit"
+                            class="update-btn">
+                        ✓ Güncelle
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

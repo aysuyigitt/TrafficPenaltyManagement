@@ -1,0 +1,584 @@
+﻿@model TrafficPenaltyManagement.Application.Dtos.EmployeeDtos.EmployeeDto
+
+<style>
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body {
+        background: #f5f7fb !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+        main > .container,
+        main > .container-fluid {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+    .employee-page {
+        width: 100%;
+        min-height: calc(100vh - 56px);
+        background: #f5f7fb;
+        padding: 35px 45px 50px;
+        box-sizing: border-box;
+    }
+
+    .employee-content {
+        width: 100%;
+    }
+
+    /* Başlık */
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+    }
+
+    .page-title {
+        font-size: 30px;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0 0 6px;
+    }
+
+    .page-subtitle {
+        color: #6b7280;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .back-btn {
+        background: white;
+        color: #374151;
+        padding: 10px 17px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .2s;
+    }
+
+        .back-btn:hover {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+    /* Çalışan adı */
+
+    .employee-heading {
+        margin-bottom: 30px;
+    }
+
+    .employee-name {
+        margin: 0 0 6px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .employee-position {
+        margin: 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    /* Bilgiler */
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 100px;
+        row-gap: 30px;
+        max-width: 1000px;
+    }
+
+    .detail-item {
+        padding-bottom: 18px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .detail-label {
+        color: #6b7280;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+        margin-bottom: 8px;
+    }
+
+    .detail-value {
+        color: #111827;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .department-value {
+        color: #2563eb;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .active-value {
+        color: #059669;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .inactive-value {
+        color: #dc2626;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .no-vehicle {
+        color: #9ca3af;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Bölümler */
+
+    .penalty-section {
+        margin-top: 50px;
+    }
+
+    .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 20px;
+    }
+
+    /* Araç geçmişi butonu */
+
+    .history-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        text-align: left;
+    }
+
+        .history-btn:hover {
+            color: #2563eb;
+        }
+
+    /* Tablolar */
+
+    .penalty-table {
+        width: 100%;
+        max-width: 1000px;
+        border-collapse: collapse;
+    }
+
+        .penalty-table th,
+        .penalty-table td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .penalty-table th {
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .penalty-table td {
+            color: #111827;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+    .no-penalty {
+        color: #9ca3af;
+        font-size: 14px;
+    }
+
+    /* Araç Geçmişi tablosu */
+
+    .vehicle-history {
+        max-width: 700px;
+    }
+
+    /* Mobil */
+
+    @@media (max-width: 768px) {
+
+        .employee-page {
+            padding: 25px 15px 40px;
+        }
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .back-btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .detail-grid {
+            grid-template-columns: 1fr;
+            column-gap: 0;
+            row-gap: 22px;
+        }
+
+        .penalty-table {
+            font-size: 13px;
+        }
+
+            .penalty-table th,
+            .penalty-table td {
+                padding: 10px 8px;
+            }
+
+        .vehicle-history {
+            max-width: 100%;
+        }
+    }
+</style>
+
+
+<div class="employee-page">
+
+    <div class="employee-content">
+
+        <!-- Başlık -->
+
+        <div class="page-header">
+
+            <div>
+                <h1 class="page-title">
+                    Çalışan Detayı
+                </h1>
+
+                <p class="page-subtitle">
+                    Çalışan bilgilerini görüntüleyin.
+                </p>
+            </div>
+
+            <a asp-controller="Employee"
+               asp-action="EmployeeList"
+               class="back-btn">
+                ← Çalışanlara Dön
+            </a>
+
+        </div>
+
+
+        <!-- Çalışan Adı -->
+
+        <div class="employee-heading">
+
+            <h2 class="employee-name">
+                @Model.FirstName @Model.LastName
+            </h2>
+
+            <p class="employee-position">
+                @Model.Position
+            </p>
+
+        </div>
+
+
+        <!-- Çalışan Bilgileri -->
+
+        <div class="detail-grid">
+
+            <!-- Ad -->
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Ad
+                </div>
+
+                <div class="detail-value">
+                    @Model.FirstName
+                </div>
+
+            </div>
+
+
+            <!-- Soyad -->
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Soyad
+                </div>
+
+                <div class="detail-value">
+                    @Model.LastName
+                </div>
+
+            </div>
+
+
+            <!-- Departman -->
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Departman
+                </div>
+
+                <div class="department-value">
+                    @Model.Department
+                </div>
+
+            </div>
+
+
+            <!-- Pozisyon -->
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Pozisyon
+                </div>
+
+                <div class="detail-value">
+                    @Model.Position
+                </div>
+
+            </div>
+
+
+            <!-- Telefon -->
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Telefon
+                </div>
+
+                <div class="detail-value">
+                    @Model.PhoneNumber
+                </div>
+
+            </div>
+
+
+            <!-- Durum -->
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Durum
+                </div>
+
+                @if (Model.IsActive)
+                {
+                    <div class="active-value">
+                        Aktif
+                    </div>
+                }
+                else
+                {
+                    <div class="inactive-value">
+                        Pasif
+                    </div>
+                }
+
+            </div>
+
+
+            <!-- Atanan Araç -->
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Atanan Araç
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Plate))
+                {
+                    <div class="detail-value">
+                        @Model.Plate
+                    </div>
+                }
+                else
+                {
+                    <div class="no-vehicle">
+                        Atanmış araç bulunmuyor.
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- Araç Geçmişi -->
+
+        <div class="penalty-section">
+
+            <button type="button"
+                    class="section-title history-btn"
+                    onclick="toggleVehicleHistory()">
+
+                Araç Geçmişi
+
+            </button>
+
+
+            <div id="vehicleHistory"
+                 class="vehicle-history"
+                 style="display: none; margin-top: 15px;">
+
+                @if (Model.VehicleAssignments != null &&
+                                Model.VehicleAssignments.Any())
+                {
+                    <table class="penalty-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Plaka</th>
+                                <th>Başlangıç Tarihi</th>
+                                <th>Bitiş Tarihi</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var assignment in Model.VehicleAssignments)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @assignment.Plate
+                                    </td>
+
+                                    <td>
+                                        @assignment.StartDate.ToString("dd.MM.yyyy")
+                                    </td>
+
+                                    <td>
+                                        @(assignment.EndDate.HasValue
+                                                                        ? assignment.EndDate.Value.ToString("dd.MM.yyyy")
+                                                                        : "Devam ediyor")
+                            </td>
+
+                                </tr>
+                                                }
+
+                        </tbody>
+
+                    </table>
+                }
+                else
+                {
+                    <p class="no-penalty">
+                        Araç atama geçmişi bulunmuyor.
+                    </p>
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- Trafik Cezaları -->
+
+        <div class="penalty-section">
+
+            <h2 class="section-title">
+                Trafik Cezaları
+            </h2>
+
+            @if (Model.Penalties != null &&
+                        Model.Penalties.Any())
+            {
+                <table class="penalty-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Ceza ID</th>
+                            <th>Plaka</th>
+                            <th>Durum</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var penalty in Model.Penalties)
+                        {
+                            <tr>
+
+                                <td>
+                                    @penalty.Id
+                                </td>
+
+                                <td>
+                                    @penalty.Plate
+                                </td>
+
+                                <td>
+                                    @penalty.Status
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            }
+            else
+            {
+                <p class="no-penalty">
+                    Bu çalışana ait trafik cezası bulunmuyor.
+                </p>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function toggleVehicleHistory() {
+
+        var history = document.getElementById("vehicleHistory");
+
+        if (history.style.display === "none") {
+
+            history.style.display = "block";
+
+        }
+        else {
+
+            history.style.display = "none";
+
+        }
+    }
+
+</script>
