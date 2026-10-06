@@ -13,9 +13,11 @@
     <div class="mb-3">
         <label asp-for="Plate" class="form-label">Araç Plakası</label>
 
-        <input asp-for="Plate"
-               class="form-control"
-               placeholder="Örn: 41 ABC 123" />
+        <select asp-for="Plate"
+                class="form-select"
+                asp-items="@(new SelectList(ViewBag.Vehicles, "Plate", "Plate"))">
+            <option value="">Plaka Seçiniz</option>
+        </select>
 
         <span asp-validation-for="Plate" class="text-danger"></span>
     </div>
@@ -59,16 +61,13 @@
                step="0.01"
                placeholder="Örn: 1500" />
 
+
         <span asp-validation-for="Amount" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="PenaltyDate" class="form-label">Ceza Tarihi</label>
-
-        <input asp-for="PenaltyDate"
-               class="form-control"
-               type="date" />
-
+    <div class="form-group">
+        <label asp-for="PenaltyDate">Ceza Tarihi</label>
+        <input asp-for="PenaltyDate" type="datetime-local" class="form-control" />
         <span asp-validation-for="PenaltyDate" class="text-danger"></span>
     </div>
 

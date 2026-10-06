@@ -5,6 +5,7 @@ using TrafficPenaltyManagement.Application.Dtos.PenaltyDtos;
 using TrafficPenaltyManagement.Application.Services.EmployeeServices;
 using TrafficPenaltyManagement.Application.Services.PenaltyServices;
 using TrafficPenaltyManagement.Application.Services.PenaltyTypeServices;
+using TrafficPenaltyManagement.Application.Services.VehicleSerivces;
 using TrafficPenaltyManagement.Infrastructure.Identitiy;
 
 namespace TrafficPenaltyManagement.WebUI.Controllers
@@ -15,13 +16,15 @@ namespace TrafficPenaltyManagement.WebUI.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmployeeService _employeeService;
         private readonly IPenaltyTypeService _penaltyTypeService;
+        private readonly IVehicleService _vehicleService;
 
-        public PenaltyController(IPenaltyService penaltyService, UserManager<ApplicationUser> userManager, IEmployeeService employeeService, IPenaltyTypeService penaltyTypeService)
+        public PenaltyController(IPenaltyService penaltyService, UserManager<ApplicationUser> userManager, IEmployeeService employeeService, IPenaltyTypeService penaltyTypeService, IVehicleService vehicleService)
         {
             _penaltyService = penaltyService;
             _userManager = userManager;
             _employeeService = employeeService;
             _penaltyTypeService = penaltyTypeService;
+            _vehicleService = vehicleService;
         }
 
         [HttpGet]
@@ -46,9 +49,11 @@ namespace TrafficPenaltyManagement.WebUI.Controllers
         {
             var employees = await _employeeService.GetAllEmployeesAsync();
             var penaltyTypes = await _penaltyTypeService.GetAllPenaltyTypeAsync();
+            var vehicles = await _vehicleService.GetAllVehiclesAsync();
 
             ViewBag.Employees = employees;
             ViewBag.PenaltyTypes = penaltyTypes;
+            ViewBag.Vehicles = vehicles;
 
             return View();
         }
@@ -137,11 +142,8 @@ namespace TrafficPenaltyManagement.WebUI.Controllers
             await _penaltyService.UpdatePenaltyAsync(updatePenaltyDto);
 
                 return RedirectToAction("PenaltyList");
-            
-            }
+        }
         
-
-
         [HttpGet]
         public async Task<IActionResult> History(int id)
         {
@@ -156,7 +158,6 @@ namespace TrafficPenaltyManagement.WebUI.Controllers
                     history.UserName = user.Name;
                 }
             }
-
             return View(histories);
         }
     }
